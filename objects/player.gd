@@ -3,7 +3,7 @@ extends KinematicBody2D
 const speed = 200
 
 var velocity = Vector2()
-
+#var shuriken = shuriken.instance();
 
 func _ready():
     set_fixed_process(true)
