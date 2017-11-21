@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const speed = 200
+const speed = 125
 const shootDelay = 0.3
 
 var shootTimer = 0
@@ -13,7 +13,7 @@ func _ready():
 func _fixed_process(delta):
     if(shootTimer > 0):
         shootTimer-= delta
-    var shurikenScript;
+    var shurikenScript
     velocity = Vector2(0,0)
 
     var upButton = Input.is_action_pressed("ui_up")
@@ -34,6 +34,15 @@ func _fixed_process(delta):
         velocity.y += -1
     elif(downButton):
         velocity.y += 1
+    var motion = (velocity.normalized()) * delta * speed
+    move(motion)
+    if (is_colliding()):
+        var n = get_collision_normal()
+        motion = n.slide(motion)
+        velocity = n.slide(velocity)
+        move(motion)
+    if(motion == Vector2(0,0)):
+	    set_pos(Vector2(round(get_pos().x),round(get_pos().y)))
 
     if((leftShootButton || rightShootButton || upShootButton || downShootButton) && shootTimer <= 0):
         shurikenCount += 1
@@ -53,11 +62,3 @@ func _fixed_process(delta):
         elif(downShootButton):
             shuriken_instance_node.projVelocity += Vector2(0,1) + (velocity*0.5)
         shootTimer = shootDelay      
-
-    var motion = velocity * speed * delta
-    move(motion)
-    if (is_colliding()):
-        var n = get_collision_normal()
-        motion = n.slide(motion)
-        velocity = n.slide(velocity)
-        move(motion)

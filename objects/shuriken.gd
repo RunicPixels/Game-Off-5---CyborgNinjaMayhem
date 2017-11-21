@@ -13,12 +13,12 @@ func _ready():
 
 func _fixed_process(delta):
     timeLeft -= delta
-    speed *= 0.995
-    var motion = projVelocity * speed * delta
+    speed *= 0.9975
+    var motion = projVelocity.normalized() * speed * delta
     move(motion)
     if (is_colliding()):
         var n = get_collision_normal()
-        motion = n.slide(motion)
+        motion = n.reflect(motion)
         projVelocity = n.reflect(projVelocity)
         move(motion)
     if(timeLeft+0.25 < lifeTime):
@@ -26,8 +26,10 @@ func _fixed_process(delta):
     if(timeLeft <= 0):
         queue_free()
         pass
-    if(motion == Vector2(0,0)):
+    if(speed < 5):
         timeLeft-= delta * 10
+    if(motion == Vector2(0,0)):
+	    set_pos(Vector2(round(get_pos().x),round(get_pos().y)))
 
 func _on_VisibilityNotifier2D_exit_screen():
 	queue_free()

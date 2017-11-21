@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<resource_file type="PackedScene" subresource_count="4" version="2.1" version_name="Godot Engine v2.1.4.stable.official">
-	<ext_resource path="res://objects/player.xml" type="PackedScene" index="1"></ext_resource>
-	<ext_resource path="res://objects/shuriken.xml" type="PackedScene" index="2"></ext_resource>
-	<ext_resource path="res://tilesets/tileset.xml" type="TileSet" index="0"></ext_resource>
+<resource_file type="PackedScene" subresource_count="5" version="2.1" version_name="Godot Engine v2.1.4.stable.official">
+	<ext_resource path="res://objects/shuriken.xml" type="PackedScene" index="3"></ext_resource>
+	<ext_resource path="res://scenes/World.gd" type="Script" index="0"></ext_resource>
+	<ext_resource path="res://tilesets/tileset.xml" type="TileSet" index="1"></ext_resource>
+	<ext_resource path="res://objects/player.xml" type="PackedScene" index="2"></ext_resource>
 	<main_resource>
 		<dictionary name="_bundled" shared="false">
 			<string> "conn_count" </string>
@@ -13,8 +14,9 @@
 			<array  len="0" shared="false">
 			</array>
 			<string> "names" </string>
-			<string_array  len="25">
+			<string_array  len="26">
 				<string> "World" </string>
+				<string> "script/script" </string>
 				<string> "Node2D" </string>
 				<string> "TileMap" </string>
 				<string> "transform/pos" </string>
@@ -46,13 +48,14 @@
 			<array  len="0" shared="false">
 			</array>
 			<string> "nodes" </string>
-			<int_array  len="70"> 				-1, -1, 1, 0, -1, 0, 0, 0, 0, 2, 2, -1, 18, 3, 0, 4, 1, 5, 2, 6, 3, 7, 4, 8, 5, 9, 6, 10, 7, 11, 2, 12, 8, 13, 8, 14, 9, 15, 10, 16, 11, 17, 11, 18, 11, 19, 12, 20, 13, 0, 0, 0, 2147483647, 21, 14, 1, 22, 8, 0, 0, 0, 2147483647, 23, 15, 2, 24, 16, 3, 17, 0 </int_array>
+			<int_array  len="72"> 				-1, -1, 2, 0, -1, 1, 1, 0, 0, 0, 0, 3, 3, -1, 18, 4, 1, 5, 2, 6, 3, 7, 4, 8, 5, 9, 6, 10, 7, 11, 8, 12, 3, 13, 9, 14, 9, 15, 10, 16, 11, 17, 12, 18, 12, 19, 12, 20, 13, 21, 14, 0, 0, 0, 2147483647, 22, 15, 1, 23, 9, 0, 0, 0, 2147483647, 24, 16, 2, 25, 17, 4, 18, 0 </int_array>
 			<string> "variants" </string>
-			<array  len="18" shared="false">
+			<array  len="19" shared="false">
+				<resource  external="0">  </resource>
 				<vector2> 16, 0 </vector2>
 				<int> -10 </int>
 				<int> 0 </int>
-				<resource  external="0">  </resource>
+				<resource  external="1">  </resource>
 				<vector2> 16, 16 </vector2>
 				<int> 16 </int>
 				<matrix32> 1, 0, 0, 1, 0, 0 </matrix32>
@@ -66,8 +69,8 @@
 					<string> "_edit_group_" </string>
 					<bool> True </bool>
 				</dictionary>
-				<resource  external="1">  </resource>
 				<resource  external="2">  </resource>
+				<resource  external="3">  </resource>
 				<bool> True </bool>
 				<vector2> -48, 0 </vector2>
 			</array>
