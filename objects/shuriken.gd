@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var speed = 200
-const lifeTime = 10
+const lifeTime = 5
 var pierce = 2
 var bounce = 4
 
