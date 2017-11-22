@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 var speed = 200
 const lifeTime = 10
+var pierce = 2
+var bounce = 4
 
 var timeLeft
 var projVelocity = Vector2()
@@ -18,12 +20,18 @@ func _fixed_process(delta):
     move(motion)
     if (is_colliding()):
         var n = get_collision_normal()
-        motion = n.reflect(motion)
-        projVelocity = n.reflect(projVelocity)
+        var colliderObject = get_collider()
+        if(colliderObject.get_meta("type") == "enemy"):
+             colliderObject._die()
+             pierce -= 1
+        else:
+             bounce -= 1
+             motion = n.reflect(motion)
+             projVelocity = n.reflect(projVelocity)
         move(motion)
     if(timeLeft+0.25 < lifeTime):
         remove_collision_exception_with(get_parent().get_node("Player"))
-    if(timeLeft <= 0):
+    if(timeLeft <= 0 || pierce == 0 || bounce == 0):
         queue_free()
         pass
     if(speed < 5):
@@ -32,4 +40,5 @@ func _fixed_process(delta):
 	    set_pos(Vector2(round(get_pos().x),round(get_pos().y)))
 
 func _on_VisibilityNotifier2D_exit_screen():
-	queue_free()
+	#queue_free()
+	pass
