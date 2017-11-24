@@ -14,6 +14,7 @@ func _ready():
     projVelocity = Vector2(0,0)
 
 func _fixed_process(delta):
+    delta = delta * get_parent().timeScale;
     timeLeft -= delta
     speed *= 0.9975
     var motion = projVelocity.normalized() * speed * delta
@@ -24,6 +25,7 @@ func _fixed_process(delta):
         if(colliderObject.get_meta("type") == "enemy"):
              colliderObject._die()
              pierce -= 1
+             get_parent().freezeFrames = 0.1
         else:
              bounce -= 1
              motion = n.reflect(motion)

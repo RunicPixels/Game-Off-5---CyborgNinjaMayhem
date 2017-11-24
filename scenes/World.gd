@@ -1,11 +1,13 @@
 extends Node2D
 
+var timeScale = 1
+var freezeFrames = 0
 #monsters
 var monstersToSpawn = 0
 var monsters = 0
 const defaultMonsters = 5
 const baseLevelMonsters = 5
-const monsterPerLevelMultiplyer = 0.2
+const monsterPerLevelMultiplyer = 0.1
 
 #spawning
 const maxMonstersBase = 8
@@ -16,7 +18,7 @@ var monstersPerSecond = monstersPerSecondBase
 var spawnPoints
 var spawnChancePerFrame
 
-#sprites
+#monsters
 var spider = preload("res://objects/spider.xml");
 
 #level
@@ -73,6 +75,23 @@ func _input(event):
             OS.set_window_fullscreen(true)
 
 func _fixed_process(delta):
+	#FREEZEFRAMES
+	if(freezeFrames > 0):
+		timeScale = 0
+		freezeFrames -= 1 * delta
+	else:
+		timeScale = 1
+	
+	if(timeScale < 1 && timeScale != 0):
+		timeScale += delta * 0.5
+	elif(timeScale == 0):
+		timeScale = 0.1
+	elif(timeScale > 1):
+		timeScale = 1;
+
+	delta *= timeScale
+	
+	
 	#SPAWNING
 	monsters = int(monsters)
 	monstersToSpawn = int(monstersToSpawn)
@@ -89,6 +108,7 @@ func _fixed_process(delta):
 		#shuriken_instance_node.add_collision_exception_with(self)
 		spider_instance_node.spawnPoint = spawnPoints[index].get_pos()
 		spider_instance_node._spawn()
+		
 	#SWITCHING LEVELS
 	if(startLevel == true):
 		monsterLabel.set_text("New level in : " + str(int(levelTimer)))
@@ -107,8 +127,6 @@ func _fixed_process(delta):
 		pass
 	#DRAWING ON SCREEN
 	levelLabel.set_text("Level : " + str(level))
-	
-	
 
         
             

@@ -1,5 +1,5 @@
 extends KinematicBody2D
-var speed = 0.5
+var speed = 75
 var alive = true
 var fadeSpeed = 5
 var spider = self
@@ -21,12 +21,13 @@ func _ready():
 	pass
 
 func _fixed_process(delta):
-	if(speed< 0.75):
-		speed = 0.4 + (get_parent().level * 0.01)
+	delta = delta * get_parent().timeScale;
+	if(speed< 125):
+		speed = 75 + (get_parent().level)
 	if(alive):
 		var direction = (target.get_global_pos() - spider.get_global_pos()).normalized()
 		set_rot(direction.angle_to_point(Vector2(0,0)));
-		move(direction*speed) 
+		move(direction*speed*delta) 
 		if (is_colliding()):
 			var colliderObject = get_collider()
 			if(colliderObject == target):
