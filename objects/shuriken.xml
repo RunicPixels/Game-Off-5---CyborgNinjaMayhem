@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <resource_file type="PackedScene" subresource_count="10" version="2.1" version_name="Godot Engine v2.1.4.stable.official">
-	<ext_resource path="res://sprites/shuriken/shuriken1/twoshuriken.png" type="Texture" index="1"></ext_resource>
 	<ext_resource path="res://sprites/shuriken/shuriken1/shuriken1-1.png" type="Texture" index="3"></ext_resource>
+	<ext_resource path="res://sprites/shuriken/shuriken1/twoshuriken.png" type="Texture" index="1"></ext_resource>
 	<ext_resource path="res://sprites/shuriken/shuriken1/shuriken1-0.png" type="Texture" index="2"></ext_resource>
 	<ext_resource path="res://objects/shuriken.gd" type="Script" index="0"></ext_resource>
 	<resource type="CircleShape2D" path="local://2">
@@ -15,7 +15,7 @@
 
 	</resource>
 	<resource type="GDScript" path="local://4">
-		<string name="script/source"> "extends Particles2D&#000a;&#000a;# class member variables go here, for example:&#000a;# var a = 2&#000a;# var b = &quot;textvar&quot;&#000a;    &#000a;&#000a;&#000a;func _ready():&#000a;&#0009;set_fixed_process(true)&#000a;&#0009;# Called every time the node is added to the scene.&#000a;&#0009;# Initialization here&#000a;&#0009;pass&#000a;&#000a;func _fixed_process(delta):&#000a;&#0009;self.set_amount(get_parent().speed/20)" </string>
+		<string name="script/source"> "extends Particles2D&#000a;onready var world = get_parent().get_parent()&#000a;# class member variables go here, for example:&#000a;# var a = 2&#000a;# var b = &quot;textvar&quot;&#000a;    &#000a;&#000a;&#000a;func _ready():&#000a;&#0009;set_fixed_process(true)&#000a;&#0009;# Called every time the node is added to the scene.&#000a;&#0009;# Initialization here&#000a;&#0009;pass&#000a;&#000a;func _fixed_process(delta):&#000a;&#0009;delta = delta * world.timeScale;&#000a;&#0009;if(world.freezeFrames &gt; 1):&#000a;&#0009;&#0009;delta = 0;&#000a;&#0009;self.set_amount(get_parent().speed * 5 * delta)" </string>
 
 	</resource>
 	<resource type="SpriteFrames" path="local://1">

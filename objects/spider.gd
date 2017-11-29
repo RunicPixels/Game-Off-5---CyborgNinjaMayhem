@@ -1,5 +1,5 @@
 extends KinematicBody2D
-var speed = 75
+var speed = 50
 var alive = true
 var fadeSpeed = 5
 var spider = self
@@ -7,6 +7,7 @@ var spawnPoint = Vector2(0,0)
 var deadTexture = preload("res://sprites/spiderdead.png")
 var aliveTexture = preload("res://sprites/spider.png")
 
+onready var world = get_parent()
 onready var target = get_parent().get_node("Player")
 # class member variables go here, for example:
 # var a = 2
@@ -21,9 +22,11 @@ func _ready():
 	pass
 
 func _fixed_process(delta):
-	delta = delta * get_parent().timeScale;
+	delta = delta * world.timeScale;
+	if(world.freezeFrames > 1):
+        delta = 0;
 	if(speed< 125):
-		speed = 75 + (get_parent().level)
+		speed = 50 + world.level
 	if(alive):
 		var direction = (target.get_global_pos() - spider.get_global_pos()).normalized()
 		set_rot(direction.angle_to_point(Vector2(0,0)));
@@ -31,6 +34,7 @@ func _fixed_process(delta):
 		if (is_colliding()):
 			var colliderObject = get_collider()
 			if(colliderObject == target):
+				world.freezeFrames = 100
 				colliderObject._die()
 	else:
 		get_node("Sprite").set_opacity(get_node("Sprite").get_opacity()-delta / fadeSpeed)

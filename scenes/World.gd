@@ -1,7 +1,9 @@
 extends Node2D
 
+#motion
 var timeScale = 1
 var freezeFrames = 0
+
 #monsters
 var monstersToSpawn = 0
 var monsters = 0
@@ -37,7 +39,6 @@ var monsterLabel
 
 func _ready():
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
-    
 	set_fixed_process(true)
 	set_process_input(true)
 	root.set_as_render_target(true)

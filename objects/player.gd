@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 const speed = 125
-const shootDelay = 0.3
+const shootDelay = 0.5
 
 var alive = true
 var deadTexture = preload("res://sprites/playerdead.png")
@@ -59,20 +59,16 @@ func _fixed_process(delta):
     	    shuriken_instance_node.add_collision_exception_with(self)
     	    shuriken_instance_node.set_pos(self.get_global_pos())
     	    if(leftShootButton):
-    	        shuriken_instance_node.projVelocity += Vector2(-1,0) + (velocity*0.5)
+    	        shuriken_instance_node.projVelocity += Vector2(-1,0) + (velocity*0.3)
     	    elif(rightShootButton):
-    	        shuriken_instance_node.projVelocity += Vector2(1,0) + (velocity*0.5)
+    	        shuriken_instance_node.projVelocity += Vector2(1,0) + (velocity*0.3)
     	    if(upShootButton):
-    	        shuriken_instance_node.projVelocity += Vector2(0,-1) + (velocity*0.5)
+    	        shuriken_instance_node.projVelocity += Vector2(0,-1) + (velocity*0.3)
     	    elif(downShootButton):
-    	        shuriken_instance_node.projVelocity += Vector2(0,1) + (velocity*0.5)
+    	        shuriken_instance_node.projVelocity += Vector2(0,1) + (velocity*0.3)
     	    shootTimer = shootDelay
     else:
     	get_node("Sprite").set_opacity(get_node("Sprite").get_opacity()-delta / fadeSpeed)
-    	if(get_node("Sprite").get_opacity() < 0.75):
-    		#show game over screen
-    		#get_tree().quit()
-    		pass
 func _die():
 	#get_node("CollisionShape2D").queue_free()
 	alive = false
