@@ -1,4 +1,6 @@
 extends Node2D
+#gamestate
+var gameActive = false
 
 #motion
 var timeScale = 1
@@ -20,14 +22,17 @@ var monstersPerSecond = monstersPerSecondBase
 var spawnPoints
 var spawnChancePerFrame
 
+#player
+var player = preload("res://objects/player.xml");
+
 #monsters
 var spider = preload("res://objects/spider.xml");
 
 #level
-var level = 0
+var level
 const levelCountDown = 5
 var startLevel = false
-var levelTimer = levelCountDown
+var levelTimer
 
 #viewport
 onready var root = get_tree().get_root()
@@ -39,7 +44,6 @@ var monsterLabel
 
 func _ready():
 	get_tree().connect("screen_resized", self, "_on_screen_resized")
-	set_fixed_process(true)
 	set_process_input(true)
 	root.set_as_render_target(true)
 	root.set_render_target_update_mode(root.RENDER_TARGET_UPDATE_ALWAYS)
@@ -54,6 +58,26 @@ func _ready():
 	monsterLabel= get_node("UI/MonstersLabel")
 
 
+func _reset_game():
+	if(get_node("Player") != null):
+		get_node("Player").free()
+	var player_instance = player.instance()
+	set_fixed_process(true)
+	player_instance.set_name("Player")
+	add_child(player_instance)
+	
+	level = 0
+	startLevel = true
+	levelTimer = levelCountDown
+	timeScale = 1
+	freezeFrames = 0
+	monstersToSpawn = 0
+	monsters = 0
+	gameActive = true
+	
+func _show_menu():
+	get_node("UI/Control").show()
+	
 func _on_screen_resized():
     var new_window_size = OS.get_window_size()
 

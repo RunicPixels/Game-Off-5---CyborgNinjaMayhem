@@ -3,7 +3,8 @@ extends KinematicBody2D
 var speed = 200
 const lifeTime = 5
 var pierce = 2
-var bounce = 4
+var bounce = 5
+var bounceCD = 0.1
 
 onready var timeLeft
 var projVelocity = Vector2()
@@ -16,12 +17,15 @@ func _ready():
 
 func _fixed_process(delta):
     delta = delta * world.timeScale;
+
     if(world.freezeFrames > 1):
         delta = 0;
         animSprite.stop()
     else:
         animSprite.play()
-    speed *= 0.9975
+    speed *= 0.997
+    if(bounceCD > 0):
+        bounceCD-= delta
     var motion = projVelocity.normalized() * speed * delta
     move(motion)
     if (is_colliding()):
@@ -34,8 +38,9 @@ func _fixed_process(delta):
              	pierce -= 1
              	world.freezeFrames = 0.1
              	world.get_node("Camera2D").shake(0.5, 10, 1.5)
-        else:
+        elif(bounceCD < 0):
              bounce -= 1
+             bounceCD = 0.1
              motion = n.reflect(motion)
              projVelocity = n.reflect(projVelocity)
         move(motion)

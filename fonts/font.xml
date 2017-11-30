@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resource_file type="DynamicFont" subresource_count="2" version="2.1" version_name="Godot Engine v2.1.4.stable.official">
+	<ext_resource path="res://fonts/Pixellari.ttf" type="DynamicFontData" index="0"></ext_resource>
+	<main_resource>
+		<int name="font/size"> 16 </int>
+		<bool name="font/use_mipmaps"> False </bool>
+		<bool name="font/use_filter"> False </bool>
+		<resource name="font/font" external="0">  </resource>
+		<resource name="fallback/0"></resource>
+	</main_resource>
+</resource_file>

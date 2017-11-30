@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const speed = 125
+const speed = 135
 const shootDelay = 0.5
 
 var alive = true
@@ -10,12 +10,14 @@ var fadeSpeed = 10
 var velocity = Vector2()
 var shuriken = preload("res://objects/shuriken.xml");
 var shurikenCount = 0;
+onready var world = get_parent()
 func _ready():
     set_fixed_process(true)
 
 func _fixed_process(delta):
-    delta = delta * get_parent().timeScale;
+    
     if(alive):
+    	delta = delta * get_parent().timeScale;
     	if(shootTimer > 0):
         	shootTimer-= delta
     	var shurikenScript
@@ -70,6 +72,8 @@ func _fixed_process(delta):
     else:
     	get_node("Sprite").set_opacity(get_node("Sprite").get_opacity()-delta / fadeSpeed)
 func _die():
-	#get_node("CollisionShape2D").queue_free()
+	world._show_menu()
+	world.gameActive = false
+	get_node("CollisionShape2D").queue_free()
 	alive = false
-	get_node("Sprite").set_texture(deadTexture) 
+	get_node("Sprite").set_texture(deadTexture)

@@ -22,19 +22,22 @@ func _ready():
 	pass
 
 func _fixed_process(delta):
+	target = get_parent().get_node("Player")
+	if(world.level == 0):
+		queue_free()
 	delta = delta * world.timeScale;
 	if(world.freezeFrames > 1):
         delta = 0;
 	if(speed< 125):
 		speed = 50 + world.level
-	if(alive):
+	if(alive && target != null):
 		var direction = (target.get_global_pos() - spider.get_global_pos()).normalized()
 		set_rot(direction.angle_to_point(Vector2(0,0)));
 		move(direction*speed*delta) 
 		if (is_colliding()):
 			var colliderObject = get_collider()
 			if(colliderObject == target):
-				world.freezeFrames = 100
+				world.freezeFrames = 1000
 				colliderObject._die()
 	else:
 		get_node("Sprite").set_opacity(get_node("Sprite").get_opacity()-delta / fadeSpeed)
